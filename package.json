@@ -5,7 +5,7 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "start": "sirv public",
-    "test" : "jest src --coverage"
+    "test": "jest src --coverage"
   },
   "devDependencies": {
     "@babel/core": "^7.13.8",
@@ -25,7 +25,10 @@
     "svelte-jester": "^1.3.0"
   },
   "dependencies": {
-    "sirv-cli": "^0.4.4"
+    "@sentry/browser": "^6.2.0",
+    "@sentry/tracing": "^6.2.0",
+    "sirv-cli": "^0.4.4",
+    "svelte-i18n": "^3.3.6"
   },
   "jest": {
     "bail": false,

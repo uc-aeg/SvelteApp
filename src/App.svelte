@@ -4,6 +4,14 @@
 	import Game from './screens/Game.svelte';
 	import { select } from './select';
 	import { load_image } from './utils.js';
+	import * as Sentry from "@sentry/browser";
+	import { Integrations } from "@sentry/tracing";
+
+	Sentry.init({
+		dsn: "https://bb4c1914b9804472aa1bac0b36f4baf1@o534444.ingest.sentry.io/5656691",
+		integrations: [new Integrations.BrowserTracing()],
+		tracesSampleRate: 1.0,
+	});
 
 	let celebs_promise;
 
@@ -18,8 +26,14 @@
 	};
 
 	const load_celebs = async () => {
-		const res = await fetch('https://cameo-explorer.netlify.app/celebs.json');
-		const data = await res.json();
+		//Sentry.captureMessage('hello');
+		const res = await fetch('https://cameo-explorer.netlify.app/celeb.json');
+		const data=[];
+		if(res.status != '404'){
+			data = await res.json();
+		}else{
+			Sentry.captureMessage('404 error');
+		}
 
 		const lookup = new Map();
 
@@ -44,6 +58,7 @@
 	};
 
 	onMount(() => {
+		//Sentry.captureMessage('Hello, world!');
 		celebs_promise = load_celebs();
 
 		load_image('/icons/right.svg');
