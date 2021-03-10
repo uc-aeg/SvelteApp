@@ -32,7 +32,8 @@
 		if(res.status != '404'){
 			data = await res.json();
 		}else{
-			Sentry.captureMessage('404 error');
+			//Sentry.captureMessage('404 error');
+			return res.status;
 		}
 
 		const lookup = new Map();
